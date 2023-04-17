@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Wynik klasyfikacji</title>
+    <style>
+        #image-preview img {
+            max-width: 500px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;
+        }
+        #image-preview {
+            display: flex;
+            justify-content: center;
+        }
+        #image-content {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <h1>Wynik Twojej klasyfikacji:</h1>
+    <p>Wynik algorytmu: {{ prediction }}</p>
+    <a href="/">Prześlij kolejne zdjęcie</a>
+    </div>
+    <!--
+    <div id="image-content">
+        <h3>Podgląd Twojego obrazu:</h3>
+    </div>
+    <div id="image-preview">
+        <img src="{{url_for('static', filename='images/' + image_file)}}" alt="Przesłany obraz">        
+    </div>-->
+  </body>
+</html>

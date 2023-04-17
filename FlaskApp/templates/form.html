@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Klasyfikacja zdjęć</title>
+    <style>
+        #image-preview img {
+            max-width: 500px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;
+        }
+
+        #image-preview {
+            display: flex;
+            justify-content: center;
+        }
+
+        #image-content {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <h1>Wybierz zdjęcie do klasyfikacji:</h1>
+    <form id="image_form" action="/" method="post" enctype="multipart/form-data">
+      <label for="image">Wybierz obraz:</label>
+      <input type="file" id="image" name="image"><br><br>
+      <input type="submit" value="Prześlij">
+    </form>
+    </div>
+    <div id="image-content">
+        <h3>Podgląd twojego obrazu:</h3>
+    </div>
+    <div id="image-preview"></div>
+    <script>
+        const input = document.getElementById('image');
+        const preview = document.getElementById('image-preview');
+
+        input.addEventListener('change', () => {
+
+            if(input.files && input.files[0]){
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    preview.innerHTML = '<img src="' + event.target.result + '" />';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        });
+    </script>
+
+  </body>
+</html>
