@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["python3", "-m", "app.py", "run", "--host=0.0.0.0"]
+CMD ["python3", "-m", "app", "run", "--host=0.0.0.0"]
