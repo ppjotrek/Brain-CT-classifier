@@ -13,7 +13,7 @@ from functools import cached_property
 from joblib import load
 
 def train_classifier():
-    input_dir = "C:\\Users\\Lenovo\\Desktop\\TOM\\CT_manual\\test"
+    input_dir = "training-data"
     categories = ['Homm', 'No_homm']
 
     data = []
