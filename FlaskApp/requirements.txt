@@ -1,4 +1,4 @@
-flask
+Flask==2.0.1
 scikit-learn
 scikit-image
 joblib
