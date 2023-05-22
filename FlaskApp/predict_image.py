@@ -1,22 +1,27 @@
-from joblib import load
-import os
-from skimage.io import imread
-from skimage.transform import resize
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
-import pandas as pd
-from functools import cached_property
-from joblib import load
+import torch as tc
+import torchvision as tv
+import SimpleITK as sitk
 
 def predict_image(img_path):
-    image = imread(img_path)
-    image = resize(image, (128, 128))
-    image = image.flatten().reshape(1, -1)
+    model_path = 'eff1.pth' # path do wag modelu
 
-    classifier = load('classifier.joblib')
+    model = tv.models.efficientnet_b0()
 
-    return classifier.predict(image)
+    model.features[0][0] = tc.nn.Conv2d(1, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    model.classifier[1] = tc.nn.Linear(1280,2,bias= True)
+
+    model.load_state_dict(tc.load(model_path))
+
+    image_path = img_path
+    image = sitk.GetArrayFromImage(sitk.ReadImage(image_path))
+    transforms = tv.transforms.Compose([
+                tv.transforms.ToTensor(),
+                tv.transforms.Resize((224,224)),
+                tv.transforms.Normalize(mean=[0.485], std=[0.229])
+                ])
+    image = transforms(image)
+
+    output = model(image.unsqueeze(0))
+    prediction = tc.argmax(tc.nn.Sigmoid()(output), dim=1)
+    return prediction.item()
