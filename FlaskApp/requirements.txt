@@ -3,3 +3,7 @@ scikit-learn
 scikit-image
 joblib
 pandas
+torch==2.0.0
+torchvision==0.13.1
+numpy==1.21.4
+SimpleITK==2.2.0
